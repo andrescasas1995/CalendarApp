@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { uiOpenModal } from '../../actions/actions';
+import { uiOpenModal } from '../../actions/ui';
 import { eventSetActive } from '../../actions/events';
 
 const AddEventFab = () => {

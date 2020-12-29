@@ -5,7 +5,7 @@ import Modal from "react-modal";
 import DateTimePicker from "react-datetime-picker";
 import { useDispatch, useSelector } from "react-redux";
 
-import { uiCloseModal } from "../../actions/actions";
+import { uiCloseModal } from "../../actions/ui";
 import { eventAdded, eventSetActive, eventUpdated } from "../../actions/events";
 
 const customStyles = {

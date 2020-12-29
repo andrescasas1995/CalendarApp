@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import moment from "moment";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import { useDispatch, useSelector } from "react-redux";
-import { uiOpenModal } from "../../actions/actions";
+import { uiOpenModal } from "../../actions/ui";
 
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "moment/locale/es";

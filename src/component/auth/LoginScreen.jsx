@@ -1,18 +1,38 @@
 import React from 'react';
 import './login.css';
 
+import { useForm } from "../../hooks/useForm";
+
 const LoginScreen = () => {
+
+    const [formValues, handleInputChange] = useForm({
+        lEmail: 'andrescasas@gmail.com',
+        lPassword: '123456'
+    });
+
+    const { lEmail, lPassword } = formValues;
+
+    const handleLogin = (e) => {
+        e.preventDefault();
+
+        console.log(formValues);
+    }
+
+
     return (
         <div className="container login-container">
-            <div className="row">
+            <div className="row login-element">
                 <div className="col-md-6 login-form-1">
                     <h3>Ingreso</h3>
-                    <form>
+                    <form onSubmit={handleLogin}>
                         <div className="form-group">
                             <input 
                                 type="text"
                                 className="form-control"
                                 placeholder="Correo"
+                                name='lEmail'
+                                value={lEmail}
+                                onChange={handleInputChange}
                             />
                         </div>
                         <div className="form-group">
@@ -20,6 +40,9 @@ const LoginScreen = () => {
                                 type="password"
                                 className="form-control"
                                 placeholder="Contraseña"
+                                name='lPassword'
+                                value={lPassword}
+                                onChange={handleInputChange}
                             />
                         </div>
                         <div className="form-group">
