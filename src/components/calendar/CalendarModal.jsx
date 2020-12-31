@@ -6,7 +6,7 @@ import DateTimePicker from "react-datetime-picker";
 import { useDispatch, useSelector } from "react-redux";
 
 import { uiCloseModal } from "../../actions/ui";
-import { eventSetActive, eventStartAdded, eventUpdated } from "../../actions/events";
+import { eventSetActive, eventStartAdded, eventStartUpdated } from "../../actions/events";
 
 const customStyles = {
   content: {
@@ -96,7 +96,7 @@ const CalendarModal = () => {
 
     //TODO realizar grabación
     if (activeEvent) {
-      dispatch(eventUpdated(formValues));
+      dispatch(eventStartUpdated(formValues));
     } else {
       dispatch(eventStartAdded(formValues));
     }
