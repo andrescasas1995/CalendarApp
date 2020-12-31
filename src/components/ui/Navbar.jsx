@@ -1,16 +1,27 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { startLogout } from '../../actions/auth';
 
 const Navbar = () => {
+    const { name } = useSelector(state => state.auth);
+    const dispatch = useDispatch();
+
+    const handleLogout = () => {
+        dispatch(startLogout());         
+    }
+
     return (
         <div className="navbar navbar-dark bg-dark mb-4">
             <span className="navbar-brand">
-                ACTIC
+                <b>ACTIC</b>
             </span>
-
-            <button className="btn btn-outline-danger">
-                <i className="fas fa-sign-out-alt"></i>
-                <span> Salir</span>
-            </button>
+            <div>
+                <small className="navbar-name">{name}</small>
+                <button className="btn btn-outline-danger" onClick={handleLogout}>
+                    <i className="fas fa-sign-out-alt"></i>
+                    <span> Salir</span>
+                </button>
+            </div>
         </div>
     );
 };

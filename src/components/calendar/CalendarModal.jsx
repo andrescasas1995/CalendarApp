@@ -6,7 +6,7 @@ import DateTimePicker from "react-datetime-picker";
 import { useDispatch, useSelector } from "react-redux";
 
 import { uiCloseModal } from "../../actions/ui";
-import { eventAdded, eventSetActive, eventUpdated } from "../../actions/events";
+import { eventSetActive, eventStartAdded, eventUpdated } from "../../actions/events";
 
 const customStyles = {
   content: {
@@ -98,14 +98,7 @@ const CalendarModal = () => {
     if (activeEvent) {
       dispatch(eventUpdated(formValues));
     } else {
-      dispatch(eventAdded({
-        ...formValues,
-        id: new Date().getTime(),
-        user: {
-          _id: 1234,
-          name: "Andres"
-        }
-      }));
+      dispatch(eventStartAdded(formValues));
     }
     
     setFormValid(true);

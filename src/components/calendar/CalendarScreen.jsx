@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import moment from "moment";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,19 +11,24 @@ import { messages } from "../../helpers/calendar-messages-es";
 import Navbar from "../ui/Navbar";
 import CalendarEvent from "./CalendarEvent";
 import CalendarModal from "./CalendarModal";
-import { eventSetActive } from "../../actions/events";
+import { eventSetActive, eventStartLoading } from "../../actions/events";
 import AddEventFab from "../ui/AddEventFab";
 import DeleteEventFab from "../ui/DeleteEventFab";
 
 moment.locale("es");
 const localizer = momentLocalizer(moment);
 
-const CalendarScreen = () => {
+export const CalendarScreen = () => {
+  const dispatch = useDispatch();
+  const { uid } = useSelector(state => state.auth);
+  const { events, activeEvent } = useSelector(state => state.calendar);
   const [lastView, setLastView] = useState(
     localStorage.getItem("lastView") || "month"
   );
-  const dispatch = useDispatch();
-  const { events, activeEvent } = useSelector(state => state.calendar);
+
+  useEffect(() => {
+    dispatch(eventStartLoading());
+  }, [dispatch]);
 
   const onDoubleClickEvent = () => {
     dispatch(uiOpenModal());
@@ -44,7 +49,7 @@ const CalendarScreen = () => {
 
   const eventStyleGetter = (event, start, end, isSelected) => {
     const style = {
-      backgroundColor: "#367CF7",
+      backgroundColor: (uid === event.user._id) ? "#367CF7" : '#465660',
       boderRadius: "0px",
       opacity: 0.8,
       color: "white",
@@ -56,32 +61,32 @@ const CalendarScreen = () => {
   };
 
   return (
-    <div className="calendar-screen">
+    <div>
       <Navbar />
-      <Calendar
-        localizer={localizer}
-        events={events}
-        startAccessor="start"
-        endAccessor="end"
-        view={lastView}
-        messages={messages}
-        eventPropGetter={eventStyleGetter}
-        onDoubleClickEvent={onDoubleClickEvent}
-        onSelectEvent={onSelectEvent}
-        onSelectSlot={onSelectSlot}
-        selectable={true}
-        onView={onViewChangeEvent}
-        components={{
-          event: CalendarEvent,
-        }}
-      />
+      <div className="calendar-screen">
+        <Calendar
+          localizer={localizer}
+          events={events}
+          startAccessor="start"
+          endAccessor="end"
+          view={lastView}
+          messages={messages}
+          eventPropGetter={eventStyleGetter}
+          onDoubleClickEvent={onDoubleClickEvent}
+          onSelectEvent={onSelectEvent}
+          onSelectSlot={onSelectSlot}
+          selectable={true}
+          onView={onViewChangeEvent}
+          components={{
+            event: CalendarEvent,
+          }}
+        />
 
-      <CalendarModal />
+        <CalendarModal />
 
-      <AddEventFab />
-      {activeEvent && <DeleteEventFab />}
+        <AddEventFab />
+        {activeEvent && <DeleteEventFab />}
+      </div>
     </div>
   );
 };
-
-export default CalendarScreen;

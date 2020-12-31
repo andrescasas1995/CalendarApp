@@ -6,7 +6,7 @@ import './login.css';
 import { useForm } from "../../hooks/useForm";
 import { startLogin, startRegister } from '../../actions/auth';
 
-const LoginScreen = () => {
+export const LoginScreen = () => {
 
     const dispatch = useDispatch();
     const [formLoginValues, handleLoginInputChange] = useForm({
@@ -134,5 +134,3 @@ const LoginScreen = () => {
         </div>
     )
 }
-
-export default LoginScreen;
